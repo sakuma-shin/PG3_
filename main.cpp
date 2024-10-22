@@ -3,33 +3,21 @@
 #include <time.h>
 #include <Windows.h>
 
-// コールバック関数の型を定義
-typedef void (*Callback)(int);
-
-// サイコロを振る関数（抽選結果をランダムで決める）
+// サイコロを振る関数
 int RollDice() {
     return rand() % 6 + 1;
 }
 
-// 結果を判定し、コールバック関数を呼び出す
-void CheckResult(int result, int guess, Callback callback) {
+//コールバック関数を呼び出す
+void CheckResult(int result, int guess, void(*callback)(int)) {
     // 三秒間待機
     Sleep(3000);
-    // コールバック関数を呼び出し
+    //呼び出し
     callback(result == guess);
 }
 
-// 結果を表示するコールバック関数
-void ShowResult(int is_correct) {
-    if (is_correct) {
-        printf("当たりです\n");
-    } else {
-        printf("ハズレです\n");
-    }
-}
-
 int main() {
-    // 乱数の種を設定
+ 
     srand(time(nullptr));
 
     // サイコロの出目を決定
@@ -43,8 +31,14 @@ int main() {
     printf("奇数(1)か偶数(0)かを当ててください: ");
     scanf_s("%d", &userGuess);
 
-    // 結果を判定し、コールバック関数を使用
-    CheckResult(diceParity, userGuess, ShowResult);
+    // ラムダ式を使った結果表示
+    CheckResult(diceParity, userGuess, [](int isCorrect) {
+        if (isCorrect) {
+            printf("当たりです\n");
+        } else {
+            printf("ハズレです\n");
+        }
+        });
 
     return 0;
 }
