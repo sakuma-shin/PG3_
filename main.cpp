@@ -23,7 +23,7 @@ int main() {
     //サイコロを振る
     int diceResult = RollDice();
 
-    //出目の奇数・偶数を判定
+    //出目の奇数偶数を判定
     int diceParity = diceResult % 2;
 
     //奇数か偶数かの入力を受け取る
