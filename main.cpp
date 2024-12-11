@@ -28,7 +28,7 @@ void Enemy::Update() {
 	// 現在の状態を実行
 	(this->*stateTable[stateIndex])();
 		// 次の状態に遷移
-		stateIndex = (stateIndex + 1) % 3; // インデックスを循環させる
+		stateIndex = (stateIndex + 1) % 3;
 	
 }
 
